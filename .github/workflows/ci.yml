@@ -1,0 +1,32 @@
+name: Bai03-CI-CD-Workflow
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build_va_dong_goi:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 1. Checkout ma nguon
+      uses: actions/checkout@v4
+
+    - name: 2. Cai dat Java 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+
+    - name: 3. Chay test va dong goi (.jar)
+      # Lệnh này sẽ thực thi vòng đời Maven: chạy test, nếu test đúng thì gói lại
+      run: mvn -B clean test package
+
+    - name: 4. Upload file .jar (Artifact)
+      uses: actions/upload-artifact@v4
+      with:
+        name: file-jar-da-build
+        path: target/*.jar
