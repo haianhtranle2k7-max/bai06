@@ -1,14 +1,13 @@
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 public class Calculator {
 
-    private static final Logger logger = LoggerFactory.getLogger(Calculator.class);
+    public double add(double a, double b) {
+        return a + b;
+    }
 
-    public int add(int a, int b) {
-        int result = a + b;
-
-        logger.info("Dang thuc hien cong: {} + {} = {}", a, b, result);
-        return result;
+    public double divide(double a, double b) {
+        if (b == 0) {
+            throw new IllegalArgumentException("Không thể chia cho 0");
+        }
+        return a / b;
     }
 }
